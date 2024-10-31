@@ -14,8 +14,9 @@ function returnHotFixID {
 }
 
 $session = (New-Object -ComObject 'Microsoft.Update.Session')
-# Query the latest 50 updates starting with the first record
-$history = $session.QueryHistory("", 0, 1000) | Select-Object ResultCode, Date, Title
+$UpdateSearcher = $session.CreateupdateSearcher()
+$Updates = @($UpdateSearcher.Search("IsHidden=0 and IsInstalled=0").Updates)
+$history | Select-Object ResultCode, Date, Title
 
 #create an array for unique HotFixes
 $HotfixUnique = @()
@@ -66,5 +67,7 @@ $hotfixreturnNum | ForEach-Object {
 $FinalHotfixList | Format-Table -AutoSize
 
 
+Write-Host ""
+if ($TimeStamp) { TimeElapsed }
 Write-Host ""
 if ($TimeStamp) { TimeElapsed }
