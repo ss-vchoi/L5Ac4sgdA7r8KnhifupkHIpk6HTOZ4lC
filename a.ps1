@@ -15,7 +15,7 @@ function returnHotFixID {
 
 $session = (New-Object -ComObject 'Microsoft.Update.Session')
 $UpdateSearcher = $session.CreateupdateSearcher()
-$Updates = @($UpdateSearcher.Search("IsHidden=0 and IsInstalled=0").Updates)
+$history = @($UpdateSearcher.Search("IsHidden=0 and IsInstalled=0").Updates)
 $history | Select-Object ResultCode, Date, Title
 
 #create an array for unique HotFixes
